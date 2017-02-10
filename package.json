@@ -13,7 +13,8 @@
   "keywords": [
     "fuse-box",
     "vue",
-    "vue.js"
+    "vue.js",
+    "TypeScript"
   ],
   "author": "devmondo",
   "license": "MIT",
