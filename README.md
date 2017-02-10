@@ -10,4 +10,4 @@ in this project we leverage `FuseBox` `HTML` plugin to show how we can Bundle an
 
 Visit `http://localhost:4445/`
 
-Don't hesitate to tell us let us know how to improve it :)
+Don't hesitate to tell us how to improve it :)

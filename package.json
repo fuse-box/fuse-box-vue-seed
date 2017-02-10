@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/fuse-box/fuse-box-vue-seed#readme",
   "devDependencies": {
-    "fuse-box": "^1.3.108",
+    "fuse-box": "^1.3.109",
     "node-sass": "^4.5.0",
     "typescript": "^2.1.6"
   },
