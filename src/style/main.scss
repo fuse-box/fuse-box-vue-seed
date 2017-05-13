@@ -1,0 +1,50 @@
+@import "~/bulma/bulma.sass";
+
+.fb-app {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  &-content {
+    padding-bottom: 20px;
+  }
+
+  &-logos-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  &-logo {
+    display: block;
+    width: 145px;
+
+    &.is-fusebox {
+      margin-right: 13px;
+    }
+  }
+
+  &-heart {
+    width: 75px;
+  }
+
+  &-title {
+    text-align: center;
+  }
+
+  &-input {
+    text-align: center;
+  }
+}
+
+.none-single-file {
+  margin: 35px;
+  border: 1px solid #b0b0b0;
+  padding: 15px;
+}

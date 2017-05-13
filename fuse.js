@@ -1,23 +1,29 @@
-const fsbx = require('fuse-box');
+const {FuseBox, VuePlugin, HTMLPlugin, SassPlugin, CSSPlugin, WebIndexPlugin, Sparky} = require("fuse-box");
 
-const fuseBox = fsbx.FuseBox.init({
-    homeDir: 'src/',
-    sourceMap: {
-        bundleReference: 'app.js.map',
-        outFile: './dist/app.js.map'
-    },
-    outFile: './dist/app.js',
+const fuse = FuseBox.init({
+    homeDir: "./src",
+    output: "dist/$name.js",
     plugins: [
+        VuePlugin(),
         [
-            fsbx.SassPlugin({ outputStyle: 'compressed' }),
-            fsbx.CSSPlugin({})
+            SassPlugin({importer: true}),
+            CSSPlugin({group: "app.css", outFile: "./dist/app.css"})
         ],
-        fsbx.TypeScriptHelpers(),
-        fsbx.JSONPlugin(),
-        fsbx.HTMLPlugin({ useDefault: false })
+        HTMLPlugin({useDefault: false}),
+        WebIndexPlugin({template: "./src/index.html"})
     ]
 });
 
-fuseBox.devServer('>main.ts **/*.html', {
-    port: 4445
-});
+fuse.dev();
+
+fuse.bundle("app.js")
+    .instructions("> index.ts + components/**")
+    .watch();
+
+fuse.run();
+
+Sparky.task("default", () => {
+        return Sparky.watch("./assets", {base: "./src"})
+            .dest("./dist");
+    }
+);
