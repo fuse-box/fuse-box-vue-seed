@@ -22,17 +22,19 @@
     "url": "https://github.com/fuse-box/fuse-box-vue-seed/issues"
   },
   "homepage": "https://github.com/fuse-box/fuse-box-vue-seed#readme",
-  "devDependencies": {
-    "fuse-box": "^2.0.0",
-    "node-sass": "^4.5.0",
-    "typescript": "^2.3.0"
-  },
   "dependencies": {
-    "bulma": "^0.4.1",
-    "fuse-box": "2.0.0-beta.22",
-    "node-sass": "^4.5.2",
-    "vue": "~2.3.2",
-    "vue-template-compiler": "~2.3.2",
-    "vue-template-es2015-compiler": "~1.5.2"
+    "prismjs": "1.8.1",
+    "vue": "2.4.4",
+    "vue-router": "2.7.0",
+    "vuetify": "0.15.7"
+  },
+  "devDependencies": {
+    "fuse-box": "2.3.1-beta.17",
+    "node-sass": "4.5.3",
+    "postcss-selector-parser": "2.2.3",
+    "typescript": "2.5.3",
+    "vue-hot-reload-api": "2.1.0",
+    "vue-template-compiler": "2.4.4",
+    "vue-template-es2015-compiler": "1.5.3"
   }
 }
