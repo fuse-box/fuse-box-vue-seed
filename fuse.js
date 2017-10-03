@@ -1,40 +1,80 @@
-const {FuseBox, VueComponentPlugin, HTMLPlugin, SassPlugin, CSSPlugin, CSSResourcePlugin, WebIndexPlugin, Sparky} = require("fuse-box");
+const {
+    FuseBox,
+    VueComponentPlugin,
+    QuantumPlugin,
+    HTMLPlugin,
+    SassPlugin,
+    CSSPlugin,
+    CSSResourcePlugin,
+    WebIndexPlugin,
+    Sparky
+} = require("fuse-box");
 
-const fuse = FuseBox.init({
-    homeDir: "./src",
-    output: "dist/$name.js",
-    useTypescriptCompiler: true,
-    polyfillNonStandardDefaultUsage : true,
-    plugins: [
-      VueComponentPlugin({
-        style: [
-          SassPlugin({
-            importer: true
-          }),
-          CSSResourcePlugin(),
-          CSSPlugin({
-            group: 'components.css',
-            inject: 'components.css'
-          })
+let fuse;
+let isProduction = false;
+
+Sparky.task("set-prod", () => {
+    isProduction = true;
+});
+Sparky.task("clean", () => Sparky.src("./dist").clean("dist/"));
+Sparky.task("watch-assets", () => Sparky.watch("./assets", { base: "./src" }).dest("./dist"));
+Sparky.task("copy-assets", () => Sparky.src("./assets", { base: "./src" }).dest("./dist"));
+
+Sparky.task("config", () => {
+    fuse = FuseBox.init({
+        homeDir: "./src",
+        output: "dist/$name.js",
+        //hash: isProduction,
+        sourceMaps: !isProduction,
+        useTypescriptCompiler: true,
+        polyfillNonStandardDefaultUsage: true,
+        plugins: [
+            VueComponentPlugin({
+                style: [
+                    SassPlugin({
+                        importer: true
+                    }),
+                    CSSResourcePlugin(),
+                    CSSPlugin({
+                        group: 'components.css',
+                        inject: 'components.css'
+                    })
+                ]
+            }),
+            CSSPlugin(),
+            WebIndexPlugin({
+                template: "./src/index.html"
+            }),
+            isProduction && QuantumPlugin({
+                bakeApiIntoBundle: "vendor",
+                uglify: true,
+                treeshake: true
+            }),
         ]
-      }),
-      CSSPlugin(),
-      WebIndexPlugin({
-        template: "./src/index.html"
-      })
-    ]
+    });
+
+    if(!isProduction){
+        fuse.dev({
+            open: true,
+            port: 8080
+        });
+    }
+    
+    const vendor = fuse.bundle("vendor")
+        .instructions("~ index.js");
+
+    const app = fuse.bundle("app")
+        .instructions("> [index.js]");
+
+    if(!isProduction){
+        app.watch().hmr();
+    }
+})
+
+Sparky.task("default", ["clean", "watch-assets", "config"], () => {
+    return fuse.run();
 });
 
-fuse.dev({
-  open: true,
-  port: 8080
+Sparky.task("dist", [ "clean", "copy-assets", "set-prod", "config"], () => {
+    return fuse.run();
 });
-
-fuse.bundle("app.js")
-    .instructions("> index.ts")
-    .watch()
-    .hmr();
-
-fuse.run();
-
-Sparky.task("default", () => Sparky.watch("./assets", {base: "./src"}).dest("./dist"));
