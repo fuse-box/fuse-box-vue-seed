@@ -12,6 +12,7 @@
     "strictNullChecks": true,
     "noEmitHelpers": true,
     "noLib": false,
-    "outDir": "dist/"
+    "outDir": "dist/",
+    "allowSyntheticDefaultImports": true
   }
 }

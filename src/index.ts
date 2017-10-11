@@ -8,7 +8,7 @@ import 'vuetify/dist/vuetify.min.css';
 import App from './components/App.vue';
 import Home from './components/Home.vue';
 import Config from './components/Config.vue';
-
+import { Lib } from './ts/lib'
 Vue.use(VueRouter);
 Vue.use(Vuetify);
 
@@ -20,7 +20,10 @@ const router = new VueRouter({
 });
 
 new Vue({
-    router,
-    el: '#app',
-    render: h => h(App),
+  router,
+  el: '#app',
+  render: h => h(App),
 });
+
+var lib = new Lib();
+lib.run();
