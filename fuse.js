@@ -28,6 +28,9 @@ Sparky.task("config", () => {
         sourceMaps: !isProduction,
         useTypescriptCompiler: true,
         polyfillNonStandardDefaultUsage: true,
+        alias: {
+            'vue': 'vue/dist/vue.js'
+        },
         plugins: [
             VueComponentPlugin({
                 style: [
@@ -53,20 +56,20 @@ Sparky.task("config", () => {
         ]
     });
 
-    if(!isProduction){
+    if (!isProduction) {
         fuse.dev({
             open: true,
             port: 8080
         });
     }
-    
+
     const vendor = fuse.bundle("vendor")
-        .instructions("~ index.js");
+        .instructions("~ index.ts vue-hot-reload-api");
 
     const app = fuse.bundle("app")
-        .instructions("> [index.js]");
+        .instructions("> [index.ts] + components/**/*.vue + ts/**/*.ts");
 
-    if(!isProduction){
+    if (!isProduction) {
         app.watch().hmr();
     }
 })
@@ -75,6 +78,6 @@ Sparky.task("default", ["clean", "watch-assets", "config"], () => {
     return fuse.run();
 });
 
-Sparky.task("dist", [ "clean", "copy-assets", "set-prod", "config"], () => {
+Sparky.task("dist", ["clean", "copy-assets", "set-prod", "config"], () => {
     return fuse.run();
 });

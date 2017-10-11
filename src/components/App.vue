@@ -5,15 +5,16 @@
       <v-container fluid class="content">
         <router-view></router-view>
       </v-container>
+      <some-vue></some-vue>
     </main>
   </v-app>
 </template>
-<script>
-  import Navigation from './Navigation.vue';
+<script language="typescript">
+import Navigation from './Navigation.vue';
 
-  export default {
-    components: {
-        Navigation
-    }
+export default {
+  components: {
+    Navigation
   }
+}
 </script>
