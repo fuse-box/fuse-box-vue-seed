@@ -27,7 +27,7 @@ Sparky.task("config", () => {
         //hash: isProduction,
         sourceMaps: !isProduction,
         useTypescriptCompiler: true,
-        polyfillNonStandardDefaultUsage: true,
+        allowSyntheticDefaultImports: true,
         plugins: [
             VueComponentPlugin({
                 style: [
