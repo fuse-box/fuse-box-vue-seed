@@ -13,6 +13,7 @@ Vue.use(VueRouter);
 Vue.use(Vuetify);
 
 const router = new VueRouter({
+  mode: 'history',
   routes: [
     { path: '/', component: Home },
     { path: '/config', component: Config }
